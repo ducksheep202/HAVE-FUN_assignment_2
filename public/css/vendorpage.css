@@ -1,0 +1,344 @@
+/*RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT*/
+#menu{
+    background: #4c7a77;
+    width: 400px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+#menu .logo{
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 30px 0 0 30px;
+}
+#menu .logo img{
+    width: 80px;
+    margin-right: 15px;
+}
+
+#menu .items{
+    margin-top: 40px;
+}
+#menu .items li{
+    list-style: none;
+    padding: 15px 0 0 30px;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+#menu .items li:hover{
+    background: silver;
+    cursor: pointer;
+}
+#menu .items li:nth-child(1){
+    border-left: 4px solid #fff;
+}
+#menu .items li i{
+    color: rgb(22, 25, 29);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 25px;
+    margin: 0 10px 0 25px;
+}
+#menu .items li:hover i,
+#menu .items li:hover a{
+    color: rgb(109, 128, 3);
+}
+#menu .items li a{
+    text-decoration: none;
+    color: rgb(22, 25, 29);
+    font-weight: 300px;
+    transition: 0.3s ease;
+}
+#interface{
+    width: calc(100% - 400px);
+    margin-left: 400px;
+    position: relative;
+}
+#interface .navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 15px 30px;
+    border-bottom: 3px solid black;
+    position: fixed;
+    width: calc(100% - 400px);
+}
+#interface .navigation .search{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid rgb(174, 198, 204);
+    border-radius: 4px;
+}
+#interface .navigation .search i{
+    margin-right: 14px;
+}
+#interface .navigation .search input{
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+#interface .navigation .profile{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#interface .navigation .profile i{
+    margin-right: 20px;
+    font-size: 19px;
+    font-weight: 400;
+}
+#interface .navigation .profile img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.n1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#menu-btn{
+    display: none;
+    color: #2b2b2b;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.i-name{
+    color: rgb(83, 82, 82);
+    padding: 30px 30px 0 30px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 70px;
+}
+.values{
+    padding: 30px 30px 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.values .val-box{
+    background: #fff;
+    width: 235px;
+    padding: 16px 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.values .val-box i{
+    font-size: 25px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    margin-right: 15px;
+}
+.values .val-box:nth-child(1) i{
+    background: rgb(151, 13, 151);
+}
+.values .val-box:nth-child(2) i{
+    background: rgb(142, 151, 13);
+}
+.values .val-box:nth-child(3) i{
+    background: rgb(151, 13, 13);
+}
+.values .val-box:nth-child(4) i{
+    background: rgb(27, 13, 151);
+}
+.values .val-box h3{
+    font-size: 18px;
+    font-weight: 600;
+}
+.values .val-box span{
+    font-size: 15px;
+    color: gray;
+}
+.board{
+    width: 94%;
+    margin: 30px 0 30px 30px;
+    overflow: auto;
+    background: #fff;
+    border-radius: 8px;
+}
+.board img{
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.board h5{
+    font-weight: 600;
+    font-size: 14px;
+}
+.board p{
+    font-weight: 400;
+    font-size: 13px;
+    color: rgb(133, 132, 132);
+}
+.board .people{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: start;
+}
+.product-des h5{
+    margin: 15px 0 10px 0;
+}
+table{
+    border-collapse: collapse;
+}
+tr{
+    border-bottom: 1px solid white;
+}
+thead td{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: #fff;
+    text-align: start;
+    padding: 15px;
+}
+tbody tr td{
+    padding: 10px 15px;
+
+}
+.active p{
+    background: #caf7cd;
+    padding: 2px 10px;
+    display: inline-block;
+    border-radius: 40px;
+    color: #2b2b2b;
+}
+.edit a{
+    text-decoration: none;
+    font-size: 14px;
+    color: #5149c7;
+}
+.small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.col-4{
+    flex-basis: 25%;
+    padding: 10px;
+    min-width: 200px;
+    margin-bottom: 50px;
+    transition: transform 0.5s;
+}
+.col-4 img{
+    width: 100%;
+}
+.title{
+    text-align: center;
+    margin: 0 auto 80px;
+    position: relative;
+    line-height: 60px;
+    color: #555;
+}
+.title::after{
+    content: '';
+    background: #0f0f0f;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.small-container h2{
+    color: #000;
+}
+.col-4 h4{
+    padding-top: 14px;
+    font-weight: normal;
+}
+.col-4 p{
+    padding-top: 8px;
+    font-size: 14px;
+    color: #000;
+}
+.col-4:hover{
+    transform: translateY(-5px);
+}
+@media (max-width: 767px){
+    #menu {
+        width: 350px;
+        position: fixed;
+        left: -350px;
+        transition: 0.3s ease;
+    }
+    #menu.active{
+        left: 0px;
+    }
+    #menu-btn{
+        display: initial;
+    }
+    #interface{
+        width: 100%;
+        margin-left: 0px;
+        display: inline-block;
+        transition: 0.3s ease;
+    }
+    #menu.active~ #interface{
+        width: calc(100% - 350px);
+        margin-left: 350px;
+        transition: 0.3s ease;
+    }
+    #interface .navigation{
+        width: 100%;
+    }
+    .values{
+    padding: 30px 30px 0 30px;
+    justify-content: flex-start;
+    }
+    .values .val-box{
+        padding: 16px 20px;
+        margin: 10px 20px 10px 0;
+    }
+    .board{
+        width: 90%;
+        padding: 0;
+        overflow-x: auto;
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #menu .logo{
+        padding: 30px 0 0 10px;
+    }
+    .row{
+        text-align: center;
+    }
+    .col-4{
+        flex-basis: 100%;
+    }
+}

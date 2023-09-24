@@ -1,0 +1,169 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include ('partials/shipperpage_layout') %>
+<body onload="showStatus()">
+ 
+        <main>
+            <div class="main-container" id="main-container">
+                <h3>District 7 Distribution Hub</h3>
+                <div class="active-order">
+                    <h3>Active Orders</h3>
+                    <div class="table-active">
+                        <table class="container-table">
+                            <colgroup>
+                                <col span="1" style="background-color: #a776c5">
+                                <col span="4" style="background-color: #45a9a6">
+                            </colgroup>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Delivery Time</th>
+                                <th>Status</th>
+                            </tr>
+                            <tr onclick="overlayShow()">
+                                <td>1234</td>
+                                <td>Bao Hoang</td>
+                                <td>2C Adaluma Avenue, Pooraka, South Australia 5095</td>
+                                <td>08/10/2023</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td>5678</td>
+                                <td>Duc Ho</td>
+                                <td>11 Gouger Street, Adelaide, South Australia 5000</td>
+                                <td>05/11/2023</td>
+                                <td>Canceled</td>
+                            </tr>
+                            <tr>
+                                <td>1357</td>
+                                <td>Vy Pham</td>
+                                <td>8A Newman Road, Forestville, South Australia 5083</td>
+                                <td>21/12/2023</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td>2648</td>
+                                <td>Muhammad Zain Ul Abideen Noaman</td>
+                                <td>10 Sutherland Road, Woodville, South Australia 5025</td>
+                                <td>29/09/2023</td>
+                                <td>Delivered</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="recent-order">
+                        <h3>Recent Orders</h3>
+                        <table class="container-table">
+                            <colgroup>
+                                <col span="1" style="background-color: #a776c5">
+                                <col span="4" style="background-color: #45a9a6">
+                            </colgroup>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Delivery Time</th>
+                                <th>Status</th>
+                            </tr>
+                            <tr>
+                                <td>1234</td>
+                                <td>Bao Hoang</td>
+                                <td>2C Adaluma Avenue, Pooraka, South Australia 5095</td>
+                                <td>07/12/2023</td>
+                                <td>Delivered</td>
+                            </tr>
+                            <tr>
+                                <td>5678</td>
+                                <td>Duc Ho</td>
+                                <td>11 Gouger Street, Adelaide, South Australia 5000</td>
+                                <td>08/05/2023</td>
+                                <td>Delivered</td>
+                            </tr>
+                            <tr>
+                                <td>1357</td>
+                                <td>Muhammad Zain Ul Abideen Noaman</td>
+                                <td>8A Newman Road, Forestville, South Australia 5083</td>
+                                <td>12/05/2023</td>
+                                <td>Canceled</td>
+                            </tr>
+                            <tr>
+                                <td>2648</td>
+                                <td>Vy Pham</td>
+                                <td>10 Sutherland Road, Woodville, South Australia 5025</td>
+                                <td>20/06/2023</td>
+                                <td>Canceled</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="overlay" class="overlay">
+                <a onclick="overlayHide()" id="close-button">Close</a>
+                <div class="content">
+                    <h1>Order Information</h1>
+                    <div class="row">
+                        <div class="column">
+                            <table id="overlay-table">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <td>1234</td>
+                                </tr>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <td>Bao Hoang</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>Q7 Saigon Riverside Complex</td>
+                                </tr>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <td>A RMIT Bachelor Degree</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Time</th>
+                                    <td>08/08/2023</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Price</th>
+                                    <td>90$</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td id="status-row">
+                                        <select id="status" onchange="changeStatus(this)">
+                                            <option value="Undefined" selected="selected">Choose A Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Delivered">Delivered</option>
+                                            <option value="Canceled">Canceled</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="column">
+                            <table>
+                                <tr>
+                                    <th>Vendor Name</th>
+                                    <td>Tom Nguyen</td>
+                                </tr>
+                                <tr>
+                                    <th>Contact Info</th>
+                                    <td>090812343</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>District 1 Somewhere</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </body>
+<%- include ('partials/footer') %>

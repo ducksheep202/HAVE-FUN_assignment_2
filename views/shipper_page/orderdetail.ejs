@@ -1,0 +1,61 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include ('partials/orderdetail') %>
+<main>
+    <div class="content">
+        <h1>Order Information</h1>
+        <div class="row">
+            <div class="column">
+                <table id="overlay-table">
+                        <tr>
+                            <th>Order ID</th>
+                            <td><%= order._id %></td>
+                        </tr>
+                        <tr>
+                            <th>Customer Name</th>
+                            <td><%= order.customer_name %></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td><%= order.address %></td>
+                        </tr>
+                        <tr>
+                            <th>Product List</th>
+                            <td><%= order.products_list %></td>
+                        </tr>
+                        <tr>
+                            <th>Total Price</th>
+                            <td><%= order.total_price %></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td><%= order.status %></td>
+                        </tr>
+                </table>
+            </div>
+            <div class="column">
+                <table>
+                    <tr>
+                        <th>Vendor Name</th>
+                        <td><%= order.business_name %></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td><%= order.business_address %></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="vertical-center">
+            <form method="post" action="shipperpage.ejs/<%= order._id %>/update">
+                <button type="submit" value="Finished Order">Finished Order</button>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include ('partials/footer') %>

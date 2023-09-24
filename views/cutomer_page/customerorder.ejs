@@ -1,0 +1,65 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include ('partials/customerorder_layout') %>
+<main>
+    <h1>Shopping Cart</h1>
+    <div class="buttons">
+        <form method="post" action="/order-generate">
+            <div id="form">
+                <table id="product-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+                <label for="name">Customer Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="address">Customer Address</label>
+                <input type="text" id="address" name="address" required>
+                <input type="submit" id="submit-button" onclick="orderSuccess()">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const removeBtns = document.querySelectorAll('.remove-btn');
+        for (let i = 0; i < removeBtns.length; i++) {
+            removeBtns[i].addEventListener('click', removeItem);
+        }
+
+        function removeItem(event) {
+            const btn = event.target;
+            const tr = btn.closest('tr');
+            tr.remove();
+        }
+
+        var product_list = JSON.parse(localStorage.getItem("product_list"))
+        var price_list = JSON.parse(localStorage.getItem("price_list"))
+        product_list.forEach((product, index) => {
+            const price = price_list[index];
+            var numb = price.match(/\d/g);
+            numb = parseInt(numb.join(""));
+            var html = "<tr>";
+            html += `<td><input type=hidden name=product style='visibility:hidden' value=${product}>` + product + "</td>";
+            html += `<td><input type=hidden name=price style='visibility:hidden' value=${numb}>` + price + "</td>";
+            html += '<td><input type="number" min="1" value="1" /></td>';
+            html += `<td><input type=hidden name=subtotal[] style='visibility:hidden' value=${numb}>` + price + "</td>";
+            html += '<td><button class="remove-btn" onclick="removeItem()">Remove</button></td>'
+            html += "</tr>"
+            document.getElementById("table-body").innerHTML += html;
+        });
+    </script>
+</main>
+<%- include ('partials/footer') %>

@@ -1,0 +1,40 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include ('partials/customerpage_layout') %>
+<main>
+    <div class="banner-container">
+      <img
+        src="https://lzd-img-global.slatic.net/g/icms/images/ims-web/72a15f8a-4f47-4881-afeb-9f5f8d38900a.jpg_2200x2200q90.jpg_.webp"
+      />
+    </div>
+    <div>
+      <span>Price range</span>
+      <span>(MIN)</span>
+      <span> - </span>
+      <span>(MAX)</span>
+      <button>Apply</button>
+    </div>
+  
+    <% products.forEach(function(product) { %>
+    <section class="<%= product.category %>">
+      <h1><%= product.category %></h1>
+      <div class="product <%= product.category %>">
+        <div class="product-container">
+          <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
+          <div class="bottom-info">
+            <div class="product-info">
+              <p><%= product.name %></p>
+              <p class="price">$ <%= product.price %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <% }); %>
+  </main>
+<%- include ('partials/footer') %>

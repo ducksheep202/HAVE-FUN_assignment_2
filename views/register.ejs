@@ -1,0 +1,71 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include ('partials/header') %>
+<title>register</title>
+    <link rel="stylesheet" href="/css/register.css">
+<%- include ('partials/header2') %>
+<form action="/register" method="POST" enctype="multipart/form-data">
+    <!-- Chọn loại người dùng -->
+    <label>User Type:</label>
+    <select name="userType" id="userTypeSelect">
+        <option value="vendor">Vendor</option>
+        <option value="customer">Customer</option>
+        <option value="shipper">Shipper</option>
+    </select>
+    
+    <!-- Các trường thông tin chung -->
+    <label>Username:</label>
+    <input type="text" name="username" required>
+    
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    
+     <label>Profile Picture (Upload Image):</label>
+    <input type="file" name="profilePicture" accept="image/*">
+    
+    <!-- Các trường thông tin cụ thể cho mỗi loại người dùng -->
+
+    <div id="vendorFields" style="display: none;">
+        <label>Business Name:</label>
+        <input type="text" name="businessName">
+        
+        <label>Business Address:</label>
+        <input type="text" name="businessAddress">
+    </div>
+
+    <div id="customerFields" style="display: none;">
+        <label>Name:</label>
+        <input type="text" name="name">
+        
+        <label>Address:</label>
+        <input type="text" name="address">
+    </div>
+
+    <div id="shipperFields" style="display: none;">
+        <label>Distribution Hub:</label>
+        <select name="distributionHub">
+            <option value="Ho Chi Minh">Ho Chi Minh</option>
+            <option value="Da Nang">Da Nang</option>
+            <option value="Hanoi">Hanoi</option>
+        </select>
+    </div>
+    
+    <input type="submit" value="Register">
+</form>
+
+<script>
+    const userTypeSelect = document.getElementById('userTypeSelect');
+    userTypeSelect.addEventListener('change', (e) => {
+        const selectedType = e.target.value;
+
+        document.getElementById('vendorFields').style.display = selectedType === 'vendor' ? 'block' : 'none';
+        document.getElementById('customerFields').style.display = selectedType === 'customer' ? 'block' : 'none';
+        document.getElementById('shipperFields').style.display = selectedType === 'shipper' ? 'block' : 'none';
+    });
+</script>
+<%- include ('partials/footer') %>

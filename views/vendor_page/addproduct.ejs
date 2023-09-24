@@ -1,0 +1,98 @@
+RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT
+<%- include (partials/addproduct_layout') %>
+<main>
+    <h1>Add New Product +</h1>
+    <hr />
+    <form
+      method="post"
+      action="form-processing"
+      enctype="multipart/form-data"
+    >
+      <div class="left-side">
+        <div>
+          <h4>
+            <label for="product_name">Product name</label>
+          </h4>
+          <input
+            id="product_name"
+            name="product_name"
+            type="text"
+            placeholder="Nike Air Force"
+          />
+          <p class="small-text">Enter 10 - 20 characters</p>
+        </div>
+        <div>
+          <h4>
+            <label for="category">Category</label>
+          </h4>
+          <select id="category" name="category">
+            <option value="shoes">Shoes</option>
+            <option value="stationery">Stationery</option>
+            <option value="phone-case">Phone case</option>
+          </select>
+        </div>
+        <div>
+          <h4>
+            <label for="price">Price</label>
+          </h4>
+          <input id="price" name="price" type="number" />
+        </div>
+        <div>
+          <h4>
+            <label for="description">Description</label>
+          </h4>
+          <textarea
+            id="description"
+            name="description"
+            rows="10"
+            placeholder="Brand-new shoes just imported from Australia. Can endure hot and humid weather."
+          ></textarea>
+          <p class="small-text">No more than 500 characters</p>
+        </div>
+      </div>
+      <!-- Data validation is put in model/Product.js file -->
+
+      <div class="right-side">
+        <div>
+          <h4>Product images</h4>
+          <div class="image-container">
+            <label for="myFile">
+              <img
+                id="display-image"
+                src="product-demo.png"
+              />
+            </label>
+            <input
+              type="file"
+              class="admin__input"
+              id="myFile"
+              name="myFile"
+            />
+            <input class="admin__submit" type="submit" />
+
+            <img src="add-image-large.png" />
+            <!-- The last two images -->
+            <div class="last-two">
+              <img src="add-image-small.png" />
+              <img src="add-image-small.png" />
+            </div>
+          </div>
+          <p class="small-text">
+            You need to add 1 to 4 images. Picture dimension should be 400 x
+            400 px. Images must not be blurry.
+          </p>
+        </div>
+        <div class="buttons">
+          <button id="reset-btn" type="reset">Reset</button>
+          <button id="submit-btn" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </main>
+  <%- include ('partials/footer') %>

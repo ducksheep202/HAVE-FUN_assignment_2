@@ -1,0 +1,114 @@
+/* MY REGISTER PAGE*/
+/*RMIT University Vietnam
+Course: COSC2430 Web Programming
+Semester: 2023A
+Assessment: Assignment 2
+Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
+ID: s3994277, s3978685, s4021266, s3989482
+Acknowledgement: chatGPT*/
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(/images/register-background);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+body h1{
+    font-weight: bold;
+    padding: 10px;
+    color: #ff3700; 
+    cursor: pointer;
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
+    font-size: 35px;
+    text-align: center;
+}
+
+form {
+            background-color: rgb(245, 245, 245);
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+input[type="text"],
+input[type="password"],
+select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+select {
+            appearance: none;
+        }
+
+input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+
+        #vendorFields,
+        #customerFields,
+        #shipperFields {
+            display: none;
+        }
+
+
+        #vendorFields label,
+        #customerFields label,
+        #shipperFields label {
+            font-weight: bold;
+        }
+
+
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}
