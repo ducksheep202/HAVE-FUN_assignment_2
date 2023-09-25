@@ -6,7 +6,7 @@ Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan 
 ID: s3994277, s3978685, s4021266, s3989482
 Acknowledgement: chatGPT*/
 const express = require('express');
-const { Vendor, Customer, Shipper, User } = require('./user');
+const { Vendor, Customer, Shipper, User, Product, Order } = require('./user');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcryptjs')
@@ -200,11 +200,11 @@ app.post('/updateProfile', checkLoggedIn, upload.single('newProfilePicture'), as
 app.get('/customer-page', (req, res) => {
     Product.findById()
     .then((products) => {
-      res.render("customer_page",
+      res.render("customerpage",
       {
         products: products,
         title: "Customer Page",
-        layout: "views/cutomer_page/customerpage.ejs"
+        layout: "views/customerpage.ejs"
       })
     })
     .catch((error) => {

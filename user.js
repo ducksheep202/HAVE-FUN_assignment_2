@@ -7,110 +7,136 @@ ID: s3994277, s3978685, s4021266, s3989482
 Acknowledgement: chatGPT*/
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const options = { discriminatorKey: 'userType' };
 
-const userSchema = new mongoose.Schema({
+const commonUserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
         unique: true,
-        match: /^[A-Za-z0-9]{8,15}$/,  // Validate username based on requirements
+        match: /^[A-Za-z0-9]{8,15}$/,
         minlength: 8,
-        maxlength: 15
+        maxlength: 15,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     profilePicture: {
-        type: String
-    }
-}, options);
+        type: String,
+    },
+});
 
-userSchema.pre('save', async function(next) {
+commonUserSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 8);
     }
     next();
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', new mongoose.Schema(commonUserSchema, options));
 
-const Vendor = User.discriminator('vendor', new mongoose.Schema({
-    businessName: {
-        type: String,
-        unique: true
+const vendorSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            maxlength: 20,
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        businessName: {
+            type: String,
+            maxlength: 20,
+            required: true,
+            unique: true
+        },
+        businessAddress: {
+            type: String,
+            maxlength: 100,
+            required: true,
+        }
     },
-    businessAddress: {
-        type: String,
-        unique: true
-    }
-}, options));
+    options
+);
 
-const Customer = User.discriminator('customer', new mongoose.Schema({
-    name: String,
-    address: String
-}, options));
+vendorSchema.plugin(uniqueValidator, { message: '{VALUE} has been used. Go back and change your {PATH}' });
+const Vendor = User.discriminator('vendor', vendorSchema);
 
-const Shipper = User.discriminator('shipper', new mongoose.Schema({
-    distributionHub: String
-}, options));
+const customerSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            maxlength: 20,
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        name: String,
+        address: String,
+    },
+    options
+);
+const Customer = User.discriminator('customer', customerSchema);
 
-module.exports = { Vendor, Customer, Shipper, User };
+const shipperSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            maxlength: 20,
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        distributionHub: {
+            type: String,
+            required: true,
+            default: "d1",
+            enum: ["d1", "d7", "abd"]
+        }
+    },
+    options
+);
+const Shipper = User.discriminator('shipper', shipperSchema);
 
-const customerSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        maxlength: 20,
+const productSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            minlength: 10,
+            maxlength: 30,
+        },
+        category: {
+            type: String,
+            enum: ['shoes', 'stationery', 'phone case'],
+        },
+        price: {
+            type: Number,
+            required: true,
+            min: 1,
+        },
+        description: {
+            type: String,
+            maxlength: 500,
+        },
+        image: {
+            type: String,
+            required: true,
+        },
     },
-    password: {
-        type: String,
-        required: true
-    },
-    customer_name: {
-        type: String,
-        maxlength: 40,
-        required: true
-    },
-    customer_address: {
-        type: String,
-        maxlength: 100,
-        required: true
-    }
-});
-
-module.exports = Customer
-
-const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 10,
-        maxlength: 20
-    },
-    category: {
-        type: String,
-        enum: ['shoes', 'stationery', 'phone case']
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 1
-    },
-    description: {
-        type: String,
-        maxlength: 500
-    },
-    image: {
-        type: String,
-        required: true
-    }
-});
+    options
+);
 
 const Product = mongoose.model('Product', productSchema);
-module.exports = Product;
 
 const products = [
     {
@@ -176,40 +202,12 @@ const products = [
         description: 'Bring coastal vibes to your device.',
         image: 'phonecase3.jpg'
     }
-]
-
-let Product = require('./Product');
+];
 
 // Insert many documents
 Product.insertMany(products)
-.then(() => console.log('Many products are saved'))
-.catch((error) => console.log(error.message));
-
-const vendorSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        maxlength: 20
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    business_name: {
-        type: String,
-        maxlength: 20,
-        required: true,
-        unique: true
-    },
-    business_address: {
-        type: String,
-        maxlength: 100,
-        required: true,
-    }
-});
-
-vendorSchema.plugin(uniqueValidator, {"message": "{VALUE} has been used. Go back and change your {PATH}"});
-module.exports = Vendor
+    .then(() => console.log('Many products are saved'))
+    .catch((error) => console.log(error.message));
 
 const orderSchema = new mongoose.Schema({
     _id: {
@@ -249,33 +247,13 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: false,
     }
-})
+}, options);
 
 orderSchema.pre('validate', function (next) {
     this.products_count = this.products_list.length
     next();
 });
 
-var Order = mongoose.model('order-info', orderSchema);
-module.exports = Order
+const Order = mongoose.model('order-info', orderSchema);
 
-const shipperSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        maxlength: 20,
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    distribution_hub: {
-        type: String,
-        required: true,
-        default: false,
-        enum: ["d1", "d7", "abd"]
-    }
-});
-
-module.exports = Shipper
-
+module.exports = { Vendor, Customer, Shipper, User, Product, Order };

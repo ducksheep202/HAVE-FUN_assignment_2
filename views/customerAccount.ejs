@@ -1,17 +1,16 @@
-RMIT University Vietnam
+<%# RMIT University Vietnam
 Course: COSC2430 Web Programming
 Semester: 2023A
 Assessment: Assignment 2
 Author: Ho Minh Duc, Nguyen Bao Hoang, Muhammad Zainulabideen Noaman, Pham Tuan Vy 
 ID: s3994277, s3978685, s4021266, s3989482
-Acknowledgement: chatGPT
-
+Acknowledgement: chatGPT %>
 <%- include ('partials/header') %>
-<title>Vendor Account</title>
+<title>customerAccount</title>
 
+    
 <%- include ('partials/header2') %>
-
-<body style="background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);"></body>
+<body  style="background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);"></body>
 
 <!-- Hiển thị thông tin cá nhân -->
 
@@ -24,38 +23,43 @@ Acknowledgement: chatGPT
                         <div class="profile-picture">
                             <img src="<%= user.profilePicture %>" alt="Profile Picture" width="250">
                         </div>
-                        <h5 class="my-3"><%= user.username %></h5>
-
+                        <h5 class="my-3">User Information</h5>
+                        
                         <div class="d-flex justify-content-center mb-2">
                             <form action="/updateProfile" method="POST" enctype="multipart/form-data">
+                            <% if (user.userType === 'customer') { %>
                                 <input type="file" name="newProfilePicture" accept="image/*" style="display: none;">
                                 <label for="fileInput" class="btn btn-primary">Update Picture</label>
-                            
+                            <% } %>
+                           
+                           
                         </div>
                     </div>
                 </div>
+                
             </div>
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Business Name</p>
+                                <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <% if (user.userType === 'vendor') { %>
-                                <p class="text-muted mb-0"><%= user.businessName %></p>
+                                <%  if (user.userType === 'customer') { %>
+                                <p class="text-muted mb-0"><%= user.name %></p>
                                 <% } %>
+                            
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Business Address</p>
+                                <p class="mb-0">Address</p>
                             </div>
                             <div class="col-sm-9">
-                                <% if (user.userType === 'vendor') { %>
-                                <p class="text-muted mb-0"><%= user.businessAddress %></p>
+                                <%  if (user.userType === 'customer') { %>
+                                    <p class="text-muted mb-0"><%= user.address %></p>
                                 <% } %>
                             </div>
                         </div>
@@ -65,9 +69,12 @@ Acknowledgement: chatGPT
                                 <p class="mb-0">Update Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <% if (user.userType === 'vendor') { %>
-                                    <input type="text" name="newBusinessName" placeholder="Insert New Business Name">
-                                <% } %>
+                                
+                                    <% if (user.userType === 'customer') { %>
+                                        <input type="text" name="newName" placeholder="Insert Your New Name">
+                                    <% } %>   
+                                
+                                
                             </div>
                         </div>
                         <hr>
@@ -76,18 +83,18 @@ Acknowledgement: chatGPT
                                 <p class="mb-0">Update Address</p>
                             </div>
                             <div class="col-sm-9">
-                                <% if (user.userType === 'vendor') { %>
-                                    <input type="text" name="newBusinessAddress" placeholder="Insert New Business Address">
-                                <% } %>
+                                
+                                    <% if (user.userType === 'customer') { %>
+                                        <input type="text" name="newAddress" placeholder="Insert Your New Address">
+                                    <% } %>   
+                                
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            
                             <button type="submit" class="btn btn-primary">Save</button>
-                            
                         </div>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -100,10 +107,13 @@ Acknowledgement: chatGPT
     crossorigin="anonymous"></script>
 <script>
     // Listen to the button click "Update Picture"
-    document.querySelector('.btn.btn-primary').addEventListener('click', function () {
-        // Activate input type file
-        document.querySelector('input[type="file"]').click();
-    });
-</script>
+document.querySelector('.btn.btn-primary').addEventListener('click', function() {
+    // Activate input type file
+    document.querySelector('input[type="file"]').click();
+});
+
+
+</script>    
 
 <%- include ('partials/footer') %>
+
